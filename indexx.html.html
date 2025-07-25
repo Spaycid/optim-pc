@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiPC Pro - Optimisation Gaming Ultime</title>
+    <style>
+        :root {
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --accent: #00ff9d;
+            --dark: #0a0e17;
+            --darker: #06090f;
+            --light: #e0f7fa;
+            --gray: #8b98b5;
+            --neon-glow: 0 0 10px rgba(0, 242, 254, 0.7);
+        }
+        
+        @font-face {
+            font-family: 'Orbitron';
+            src: url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0, 242, 254, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(79, 172, 254, 0.15) 0%, transparent 50%),
+                linear-gradient(to bottom, var(--darker), var(--dark));
+            background-attachment: fixed;
+        }
+        
+        /* Effet de particules */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* Header futuriste */
+        .header {
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.1);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: transparent;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: 1px;
+            position: relative;
+            padding-right: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .logo::after {
+            content: 'PRO';
+            position: absolute;
+            right: 0;
+            top: -0.5rem;
+            font-size: 0.8rem;
+            background: var(--accent);
+            color: var(--darker);
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        /* Contenu principal */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+        
+        /* Page d'accueil - Hero section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 2rem;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.1) 0%, transparent 70%);
+            animation: pulse 15s infinite alternate;
+            z-index: -1;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(25%, 15%); }
+            100% { transform: translate(-15%, -25%); }
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            border-radius: 100%;
+            filter: blur(1px);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 3rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* Bouton cyberpunk */
+        .btn {
+            position: relative;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--light);
+            background: transparent;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            z-index: 1;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: var(--darker);
+            border-radius: 48px;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.5);
+        }
+        
+        .btn:hover::after {
+            background: transparent;
+        }
+        
+        .btn span {
+            position: relative;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover span {
+            color: var(--light);
+        }
+        
+        /* Page des options */
+        .options-section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 4rem;
+            text-align: center;
+            position: relative;
+            color: var(--light);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 1.5rem auto 0;
+            border-radius: 2px;
+            box-shadow: var(--neon-glow);
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            perspective: 1000px;
+        }
+        
+        .option-card {
+            background: rgba(10, 14, 23, 0.6);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0, 242, 254, 0.1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer; /* Ajout du curseur en main */
+        }
+        
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            box-shadow: var(--neon-glow);
+        }
+        
+        .option-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.05), transparent 70%);
+            z-index: -1;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 20px 50px rgba(0, 242, 254, 0.3);
+            border-color: rgba(0, 242, 254, 0.3);
+        }
+        
+        .option-name {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .option-name::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+        
+        .option-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--light);
+            margin: 2rem 0;
+            position: relative;
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .option-price::before {
+            content: '€';
+            font-size: 1.5rem;
+            vertical-align: top;
+            margin-right: 3px;
+            color: var(--accent);
+        }
+        
+        .option-features {
+            list-style-type: none;
+            margin-top: 2rem;
+        }
+        
+        .option-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+        
+        .option-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--darker);
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .option-features li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Page de contact */
+        .contact-section {
+            padding: 6rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        
+        .contact-card {
+            background: rgba(10, 14, 23, 0.7);
+            border-radius: 15px;
+            padding: 4rem 3rem;
+            border: 1px solid rgba(0, 242, 254, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 157, 0.1) 0%, transparent 70%);
+            animation: pulse 12s infinite alternate-reverse;
+            z-index: -1;
+        }
+        
+        .contact-email {
+            font-size: 1.8rem;
+            margin: 3rem 0;
+            word-break: break-all;
+            color: var(--accent);
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+            position: relative;
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-email:hover {
+            transform: scale(1.02);
+            background: rgba(0, 255, 157, 0.15);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+        }
+        
+        .contact-info {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            color: var(--gray);
+        }
+        
+        /* Boutons de navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        .back-btn {
+            position: relative;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: transparent;
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, var(--primary), transparent);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .back-btn:hover {
+            color: var(--light);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        }
+        
+        .back-btn:hover::before {
+            width: 100%;
+        }
+        
+        /* Footer futuriste */
+        .footer {
+            background: linear-gradient(to top, rgba(6, 9, 15, 0.9), transparent);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            border-top: 1px solid rgba(0, 242, 254, 0.1);
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+        
+        .footer p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        /* Animation de scan */
+        @keyframes scan {
+            0% { top: -100%; }
+            100% { top: 150%; }
+        }
+        
+        /* Effet de scan au survol des cartes */
+        .option-card:hover .scan-effect {
+            animation: scan 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+        
+        .scan-effect {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, 
+                transparent, 
+                rgba(0, 242, 254, 0.1), 
+                transparent);
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0;
+        }
+        
+        .option-card:hover .scan-effect {
+            opacity: 1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .header {
+                padding: 1rem 2rem;
+            }
+            
+            .hero {
+                padding: 8rem 2rem 4rem;
+            }
+            
+            .options-section, .contact-section {
+                padding: 5rem 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .hero {
+                padding: 7rem 1.5rem 3rem;
+            }
+            
+            .options-section, .contact-section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn, .back-btn {
+                width: 100%;
+            }
+            
+            .contact-email {
+                font-size: 1.4rem;
+                padding: 0.8rem 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .option-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .contact-card {
+                padding: 3rem 1.5rem;
+            }
+            
+            .contact-email {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Effet de particules -->
+    <div id="particles-js"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <a href="#" class="logo" id="home-btn">OptiPC</a>
+    </header>
+    
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Page d'accueil -->
+        <section class="hero" id="home-page">
+            <h1>DÉVOILEZ VOTRE PLEIN POTENTIEL</h1>
+            <p>Optimisations haut de gamme pour des performances inégalées dans vos jeux et applications professionnelles</p>
+            <button class="btn" id="show-options-btn"><span>Découvrir nos optis</span></button>
+        </section>
+        
+        <!-- Page des options -->
+        <section class="options-section" id="options-page" style="display:none;">
+            <h2 class="section-title">NOS SOLUTIONS HAUTES PERFORMANCES</h2>
+            
+            <div class="options-grid">
+                <!-- Les options seront ajoutées ici par JavaScript -->
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="back-btn" id="back-btn">Retour à l'accueil</button>
+            </div>
+        </section>
+        
+        <!-- Page de contact -->
+        <section class="contact-section" id="contact-page" style="display:none;">
+            <div class="contact-card">
+                <h2 class="section-title">COMMANDEZ VOTRE OPTIMISATION</h2>
+                <div class="contact-info">
+                    <p>Envoyez un email à l'adresse suivante en précisant l'option choisie :</p>
+                    <div class="contact-email">optimisationpc@protonmail.com</div>
+                    <p>Nous vous répondrons sous 24h avec les instructions pour le paiement et la procédure d'optimisation.</p>
+                </div>
+                <div class="nav-buttons">
+                    <button class="back-btn" id="back-contact-btn">Retour aux options</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2023 OPTIPC PRO - OPTIMISATIONS HAUT DE GAMME</p>
+    </footer>
+    
+    <!-- Script des particules -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        // Initialisation des particules
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#00f2fe"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 2,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#00f2fe",
+                        "opacity": 0.2,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 1,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": true,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 0.5
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        });
+        
+        // Données des options
+        const options = [
+            {
+                name: "Opti Standard",
+                price: "5.99",
+                features: [
+                    "Boost des performances du processeur",
+                    "Boost de l'alimentation",
+                    "Baisse des processus Windows",
+                    "Optimisation du processeur",
+                    "Custom driver (choix du chef)"
+                ]
+            },
+            {
+                name: "Opti Pro",
+                price: "14.99",
+                features: [
+                    "Overclocking léger de la carte graphique/GPU",
+                    "Optimisation Windows pour plus de légèreté",
+                    "Activation XMP (si compatible)",
+                    "Optimisation du processeur",
+                    "Activation du XMP dans le BIOS (si compatible)",
+                    "Meilleure gestion des ressources"
+                ]
+            },
+            {
+                name: "Opti Elite",
+                price: "29.99",
+                features: [
+                    "Optimisation complète de l'ordinateur",
+                    "Optimisation du panel AMD/NVIDIA",
+                    "Optimisation max de la carte graphique",
+                    "Baisse de latence et des processus",
+                    "Test complet des performances avant/après",
+                    "Overclocking processeur (selon compatibilité)",
+                    "Activation du XMP dans le bios (si compatible)"
+                ]
+            }
+        ];
+        
+        // Éléments DOM
+        const homePage = document.getElementById('home-page');
+        const optionsPage = document.getElementById('options-page');
+        const contactPage = document.getElementById('contact-page');
+        const showOptionsBtn = document.getElementById('show-options-btn');
+        const backBtn = document.getElementById('back-btn');
+        const backContactBtn = document.getElementById('back-contact-btn');
+        const homeBtn = document.getElementById('home-btn');
+        const optionsGrid = document.querySelector('.options-grid');
+        
+        // Afficher la page des options
+        showOptionsBtn.addEventListener('click', function() {
+            homePage.style.display = 'none';
+            optionsPage.style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            // Générer les cartes d'options
+            optionsGrid.innerHTML = '';
+            options.forEach(option => {
+                const featuresList = option.features.map(feature => `<li>${feature}</li>`).join('');
+                
+                const optionCard = `
+                    <div class="option-card">
+                        <div class="scan-effect"></div>
+                        <h3 class="option-name">${option.name}</h3>
+                        <div class="option-price">${option.price}</div>
+                        <ul class="option-features">
+                            ${featuresList}
+                        </ul>
+                    </div>
+                `;
+                
+                optionsGrid.innerHTML += optionCard;
+            });
+            
+            // Ajouter les événements click sur les cartes
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    optionsPage.style.display = 'none';
+                    contactPage.style.display = 'block';
+                    window.scrollTo(0, 0);
+                    
+                    // Animation spéciale
+                    contactPage.style.opacity = '0';
+                    setTimeout(() => {
+                        contactPage.style.transition = 'opacity 0.5s ease';
+                        contactPage.style.opacity = '1';
+                    }, 10);
+                });
+            });
+        });
+        
+        // Retour à la page d'accueil
+        backBtn.addEventListener('click', function() {
+            optionsPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            homePage.style.display = 'flex';
+            window.scrollTo(0, 0);
+            
+            // Animation spéciale
+            homePage.style.opacity = '0';
+            setTimeout(() => {
+                homePage.style.transition = 'opacity 0.5s ease';
+                homePage.style.opacity = '1';
+            }, 10);
+        });
+        
+        // Retour à la page des options depuis la page de contact
+        backContactBtn.addEventListener('click', function() {
+            contactPage.style.display = 'none';
+            optionsPage.style.display = 'block';
+            window.scrollTo(0, 0);
+        });
+        
+        // Retour à l'accueil via le logo
+        homeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            optionsPage.style.display = 'none';
+            contactPage.style.display = 'none';
+            homePage.style.display = 'flex';
+            window.scrollTo(0, 0);
+            
+            // Animation spéciale
+            homePage.style.opacity = '0';
+            setTimeout(() => {
+                homePage.style.transition = 'opacity 0.5s ease';
+                homePage.style.opacity = '1';
+            }, 10);
+        });
+        
+        // Effet de saisie pour le titre
+        function typeWriter(element, text, i = 0) {
+            if (i < text.length) {
+                element.innerHTML = text.substring(0, i+1) + '<span aria-hidden="true"></span>';
+                setTimeout(() => typeWriter(element, text, i + 1), 100);
+            }
+        }
+        
+        // Lancer l'effet de saisie au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            const title = document.querySelector('.hero h1');
+            const fullText = title.textContent;
+            title.textContent = '';
+            setTimeout(() => typeWriter(title, fullText), 500);
+        });
+    </script>
+</body>
+</html>
